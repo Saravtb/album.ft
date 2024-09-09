@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>meu VSCO</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Estilo para o Modal */
+.modal {
+  display: none; /* Oculta o modal por padrão */
+  position: fixed; /* Fica fixo na tela */
+  z-index: 1; /* Fica acima de outros conteúdos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Adiciona rolagem se necessário */
+  background-color: rgba(0, 0, 0, 0.8); /* Cor de fundo escura com opacidade */
+}
+
+/* Estilo da imagem dentro do modal */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Estilo do contêiner da legenda e ícone de favorito */
+.caption-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  max-width: 700px;
+  margin: auto;
+  padding: 10px 0;
+  height: 150px;
+  color: #f1f1f1;
+}
+
+/* Ajuste a largura da legenda */
+.caption {
+  flex: 1;
+  text-align: left;
+}
+
+/* Botão de fechar */
+.close {
+  position: absolute;
+  top: 0;
+  right: 45px;
+  color: #f1f1f1;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilo do ícone de favorito */
+.favorite {
+  font-size: 30px;
+  color: #f1f1f1;
+  cursor: pointer;
+}
+
+.favorite.favorited {
+  color: gold; /* Cor da estrela quando favorita */
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Cachorros que disputam a fama com o Barack Obama - VSCO</h1>
+</header>
+
+<main id="album">
+<section class="coluna">
+<img src="touquinha.jpg" alt="Hora do banho">
+<img src="calvo.jpg" alt="Viva os calvos">
+<img src="muro.jpg" alt="Viva a estetica">
+<img src="zoio.jpg" alt="Acabei de acordar">
+<img src="acontece.jpg" alt="Minha dona não deixou eu ficar no banheiro enquanto toma banho. Vou protestar!">
+</section>
+<section class="coluna">
+<img src="cana.jpg" alt="A casa caiu junim, te vejo nas ruas daqui 5 anos">
+<img src="chorei.jpg" alt="Homem não chora, mais cachorro sim. Ninguem é de Ferro">
+<img src="cleiton.jpg" alt="Feio sim, Dessarrumado nunca!">
+<img src="coracao.jpg" alt="Sofram CLT:)">
+<img src="emo.jpg" alt="Emo gotico">
+<img src="pcina.jpg" alt="Aulinha de natação, meu dia favorito">
+</section>
+<section class="coluna">
+<img src="jorge.jpg" alt="oh vitoria chegou...">
+<img src="mao.jpg" alt="Operei o nariz">
+<img src="mona.jpg" alt="Trajado para ir a escola">
+<img src="queisso.jpg" alt="Tubarão queria me atacar">
+<img src="touquinha.jpg" alt="Banho denovo">
+<img src="mercado.jpg" alt="Vida de CLT">
+</section>
+<section class="coluna">
+<img src="truco.jpg" alt="Partida com os de verdade">
+<img src="dora.jpg" alt="Dora dora dora aventureira">
+<img src="sabedoria.jpg" alt="Simon te ensina">
+<img src="socorro.jpg" alt="Dia de Tosar">
+<img src="supercia.jpg" alt="Superlancia ">
+<img src="superfesta.jpg" alt="Niver dos brothers">
+</section>
+</main>
+
+<footer>
+<p>dog DOG dog DOG</p>
+</footer>
+
+<!-- Modal -->
+<div id="imageModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage">
+  <div id="caption-container" class="caption-container">
+    <div id="caption" class="caption"></div>
+    <span id="favoriteIcon" class="favorite">&#9733;</span> <!-- Ícone de estrela -->
+  </div>
+</div>
+
+<script>
+// Obtém o modal
+var modal = document.getElementById('imageModal');
+
+// Obtém a imagem do modal
+var modalImg = document.getElementById('modalImage');
+
+// Obtém a legenda do modal
+var captionText = document.getElementById('caption');
+
+// Obtém o ícone de favorito
+var favoriteIcon = document.getElementById('favoriteIcon');
+
+// Armazena as URLs das imagens favoritas
+var favorites = [];
+
+// Obtém todos os elementos de imagem
+var imgs = document.querySelectorAll('section > img');
+
+// Adiciona um evento de clique em cada imagem
+imgs.forEach(function(img) {
+  img.onclick = function() {
+    modal.style.display = 'block';
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+
+    // Atualiza o estado do ícone de favorito
+    if (favorites.includes(this.src)) {
+      favoriteIcon.classList.add('favorited');
+    } else {
+      favoriteIcon.classList.remove('favorited');
+    }
+  }
+});
+
+// Adiciona um evento de clique ao ícone de favorito
+favoriteIcon.onclick = function() {
+  var imgSrc = modalImg.src;
+
+  // Verifica se a imagem já está nos favoritos
+  if (favorites.includes(imgSrc)) {
+    // Remove dos favoritos
+    favorites = favorites.filter(function(fav) {
+      return fav !== imgSrc;
+    });
+    favoriteIcon.classList.remove('favorited');
+  } else {
+    // Adiciona aos favoritos
+    favorites.push(imgSrc);
+    favoriteIcon.classList.add('favorited');
+  }
+
+  // Opcional: Log para depuração
+  console.log('Favoritos:', favorites);
+}
+
+// Obtém o botão de fechar
+var span = document.getElementsByClassName('close')[0];
+
+// Quando o usuário clicar no botão de fechar, fecha o modal
+span.onclick = function() {
+  modal.style.display = 'none';
+}
+
+// Quando o usuário clicar fora do modal, fecha o modal
+window.onclick = function(event) {
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>
