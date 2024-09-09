@@ -6,28 +6,24 @@
 <title>meu VSCO</title>
 <link rel="stylesheet" href="style.css">
 <style>
-/* Estilo para o Modal */
 .modal {
-  display: none; /* Oculta o modal por padrão */
-  position: fixed; /* Fica fixo na tela */
-  z-index: 1; /* Fica acima de outros conteúdos */
+  display: none; 
+  position: fixed; 
+  z-index: 1;  
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* Adiciona rolagem se necessário */
-  background-color: rgba(0, 0, 0, 0.8); /* Cor de fundo escura com opacidade */
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.8); 
 }
 
-/* Estilo da imagem dentro do modal */
 .modal-content {
   margin: auto;
   display: block;
   width: 80%;
   max-width: 700px;
 }
-
-/* Estilo do contêiner da legenda e ícone de favorito */
 .caption-container {
   display: flex;
   justify-content: space-between;
@@ -39,14 +35,10 @@
   height: 150px;
   color: #f1f1f1;
 }
-
-/* Ajuste a largura da legenda */
 .caption {
   flex: 1;
   text-align: left;
 }
-
-/* Botão de fechar */
 .close {
   position: absolute;
   top: 0;
@@ -62,16 +54,13 @@
   text-decoration: none;
   cursor: pointer;
 }
-
-/* Estilo do ícone de favorito */
 .favorite {
   font-size: 30px;
   color: #f1f1f1;
   cursor: pointer;
 }
-
 .favorite.favorited {
-  color: gold; /* Cor da estrela quando favorita */
+  color: gold; 
 }
 </style>
 </head>
@@ -117,44 +106,36 @@
 <footer>
 <p>dog DOG dog DOG</p>
 </footer>
-
-<!-- Modal -->
+  
 <div id="imageModal" class="modal">
   <span class="close">&times;</span>
   <img class="modal-content" id="modalImage">
   <div id="caption-container" class="caption-container">
     <div id="caption" class="caption"></div>
-    <span id="favoriteIcon" class="favorite">&#9733;</span> <!-- Ícone de estrela -->
+    <span id="favoriteIcon" class="favorite">&#9733;</span> 
   </div>
 </div>
 
 <script>
-// Obtém o modal
+
 var modal = document.getElementById('imageModal');
 
-// Obtém a imagem do modal
 var modalImg = document.getElementById('modalImage');
 
-// Obtém a legenda do modal
 var captionText = document.getElementById('caption');
 
-// Obtém o ícone de favorito
 var favoriteIcon = document.getElementById('favoriteIcon');
 
-// Armazena as URLs das imagens favoritas
 var favorites = [];
 
-// Obtém todos os elementos de imagem
 var imgs = document.querySelectorAll('section > img');
 
-// Adiciona um evento de clique em cada imagem
 imgs.forEach(function(img) {
   img.onclick = function() {
     modal.style.display = 'block';
     modalImg.src = this.src;
     captionText.innerHTML = this.alt;
 
-    // Atualiza o estado do ícone de favorito
     if (favorites.includes(this.src)) {
       favoriteIcon.classList.add('favorited');
     } else {
@@ -163,36 +144,30 @@ imgs.forEach(function(img) {
   }
 });
 
-// Adiciona um evento de clique ao ícone de favorito
 favoriteIcon.onclick = function() {
   var imgSrc = modalImg.src;
 
-  // Verifica se a imagem já está nos favoritos
   if (favorites.includes(imgSrc)) {
-    // Remove dos favoritos
+  
     favorites = favorites.filter(function(fav) {
       return fav !== imgSrc;
     });
     favoriteIcon.classList.remove('favorited');
   } else {
-    // Adiciona aos favoritos
+  
     favorites.push(imgSrc);
     favoriteIcon.classList.add('favorited');
   }
 
-  // Opcional: Log para depuração
   console.log('Favoritos:', favorites);
 }
 
-// Obtém o botão de fechar
 var span = document.getElementsByClassName('close')[0];
 
-// Quando o usuário clicar no botão de fechar, fecha o modal
 span.onclick = function() {
   modal.style.display = 'none';
 }
 
-// Quando o usuário clicar fora do modal, fecha o modal
 window.onclick = function(event) {
   if (event.target === modal) {
     modal.style.display = 'none';
