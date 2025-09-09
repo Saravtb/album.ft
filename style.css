@@ -18,7 +18,13 @@ header {
 text-align: center;
 padding: 30px;
 color: white;
+background-color: rgb(42, 41, 41);
+margin-left: 150px;
+margin-right: 150px;
+border-radius: 0px 0px 20px 20px;
+margin-bottom: 20px;
 }
+
 
 main#album {
 /*Renderiza os elementos*/
@@ -48,7 +54,6 @@ color: rgb(255, 255, 255);
 padding: 15px;
 text-align: center;
 }
-@charset "UTF-8";
 
 /* DEVICES BREAKPOINTS
 Telas pequenas: até 600px
@@ -69,4 +74,62 @@ flex: 1 1 50%;
 @media screen and (min-width: 992px) {
 section.coluna {
 flex: 1 1 25%;
+}
+}
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1;  
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.8); 
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+.caption-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  max-width: 700px;
+  margin: auto;
+  padding: 10px 0;
+  height: 150px;
+  color: #f1f1f1;
+}
+.caption {
+  flex: 1;
+  text-align: left;
+}
+.close {
+  position: absolute;
+  top: 0;
+  right: 45px;
+  color: #f1f1f1;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+.favorite {
+  font-size: 30px;
+  color: #f1f1f1;
+  cursor: pointer;
+}
+.favorite.favorited {
+  color: gold; 
 }
